@@ -33,7 +33,7 @@ jobs:
         # Artifact name
         name: ToDoApi
         # A file, directory or wildcard pattern that describes what to upload
-        path: app
+        path: app/
         # The desired behavior if no files are found using the provided path.
   container:
     runs-on: ubuntu-latest
