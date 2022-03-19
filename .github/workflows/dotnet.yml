@@ -23,6 +23,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Publish
       run: dotnet publish -o app
+    - name: Print Folder
+      shell: bash
+      run: |
+        ls
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
