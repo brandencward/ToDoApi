@@ -55,7 +55,7 @@ jobs:
         printf "\n"
         ls /home/runner/work/ToDoApi/ToDoApi/app/
         printf "\n"
-        ls ../
+        ls /home/runner/work/ToDoApi/ToDoApi/app/app/
     - name: Docker Build
       shell: bash
       run: |
