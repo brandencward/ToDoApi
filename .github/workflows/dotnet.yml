@@ -36,6 +36,7 @@ jobs:
         path: app/
         # The desired behavior if no files are found using the provided path.
   container:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Download a Build Artifact
