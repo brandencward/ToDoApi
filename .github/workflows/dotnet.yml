@@ -50,8 +50,11 @@ jobs:
       shell: bash
       run: |
         pwd
+        printf "\n"
         ls /home/runner/work/ToDoApi/ToDoApi/
+        printf "\n"
         ls /home/runner/work/ToDoApi/ToDoApi/app/
+        printf "\n"
         ls ../
     - name: Docker Build
       shell: bash
