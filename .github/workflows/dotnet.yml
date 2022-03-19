@@ -46,6 +46,10 @@ jobs:
         name: ToDoApi
         # Destination path
         path: app
+    - name: Print Folder
+      shell: bash
+      run: |
+        pwd
     - name: Docker Build
       shell: bash
       run: |
