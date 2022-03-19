@@ -11,10 +11,12 @@ public class SecretController : ControllerBase
     private readonly ILogger<SecretController> _logger;
 
     private readonly IReadFiles _readFiles;
-    public SecretController(ILogger<SecretController> logger, IReadFiles readFiles)
+    private readonly IReadEnvironmentVariable _readEnvironmentVariable;
+    public SecretController(ILogger<SecretController> logger, IReadFiles readFiles, IReadEnvironmentVariable readEnvironmentVariable)
     {
         _logger = logger;
         _readFiles = readFiles;
+        _readEnvironmentVariable = readEnvironmentVariable;
     }
 
     
@@ -25,8 +27,7 @@ public class SecretController : ControllerBase
 
         try
         {   
-            string[] lines = _readFiles.GetFileText(path);               
-            secret.SecretValue = lines;            
+            secret.SecretValue = _readFiles.GetFileText(path);
         }
         catch(Exception ex)
         {
@@ -36,17 +37,17 @@ public class SecretController : ControllerBase
     }   
 
     [HttpGet("GetEnvironmentVariable/{variable}")]
-    public String GetEnvironmentVariable(string variable)
+    public EnvironmentVariable GetEnvironmentVariable(string variable)
     {        
-        string? var = "";
+        EnvironmentVariable environmentVariable = new EnvironmentVariable();
         try
         {   
-            var = Environment.GetEnvironmentVariable(variable);
+            environmentVariable.EnvironmentVariableValue = _readEnvironmentVariable.GetEnvVariable(variable);
         }
         catch(Exception ex)
         {
             _logger.LogError("Failed to Get Environment Variable. ", ex);
         }   
-        return var; 
+        return environmentVariable; 
     }   
 }

@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IReadFiles, ReadFiles>();
+builder.Services.AddTransient<IReadEnvironmentVariable, ReadEnvironmentVariable>();
 
 var app = builder.Build();
 
