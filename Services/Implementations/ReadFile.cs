@@ -11,13 +11,13 @@ public class ReadFiles : IReadFiles
 
     public string[] GetFileText(string path)
     {
-        string[] lines = {};
+        string[] lines = { };
 
         try
         {
-            lines = System.IO.File.ReadAllLines(path);        
+            lines = System.IO.File.ReadAllLines(path);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError("Error Reading File. ", ex);
         }

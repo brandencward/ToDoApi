@@ -18,8 +18,8 @@ public class SecretController : ControllerBase
     }
 
     
-    [HttpGet(Name = "GetSecret")]
-    public Secret Get(string path)
+    [HttpGet(Name = "GetSecret/{path}")]
+    public Secret GetSecret(string path)
     {
         Secret secret = new Secret(); 
 
@@ -33,5 +33,20 @@ public class SecretController : ControllerBase
             _logger.LogError("Failed to Get Secret. ", ex);
         }   
         return secret; 
-    }    
+    }   
+
+    [HttpGet("GetEnvironmentVariable/{variable}")]
+    public String GetEnvironmentVariable(string variable)
+    {        
+        string? var = "";
+        try
+        {   
+            var = Environment.GetEnvironmentVariable(variable);
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError("Failed to Get Environment Variable. ", ex);
+        }   
+        return var; 
+    }   
 }
