@@ -50,10 +50,9 @@ jobs:
       shell: bash
       run: |
         pwd
-    - name: Print Folder
-      shell: bash
-      run: |
         ls /home/runner/work/ToDoApi/ToDoApi/
+        ls /home/runner/work/ToDoApi/ToDoApi/app/
+        ls ../
     - name: Docker Build
       shell: bash
       run: |
