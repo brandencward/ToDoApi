@@ -3,4 +3,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 COPY app/ /app
 WORKDIR /app
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+EXPOSE 80
+EXPOSE 443
+ENTRYPOINT ["dotnet", "TodoApi.dll"]

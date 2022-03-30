@@ -20,7 +20,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build -c release --no-restore
     - name: Publish
       run: dotnet publish -o app
     - name: Print Folder
@@ -58,4 +58,4 @@ jobs:
     - name: Docker Build
       shell: bash
       run: |
-        DOCKER_BUILDKIT=0 docker build .
+        DOCKER_BUILDKIT=1 docker build . -t todoapi
