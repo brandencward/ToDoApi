@@ -59,3 +59,10 @@ jobs:
       shell: bash
       run: |
         DOCKER_BUILDKIT=1 docker build . -t todoapi
+    - name: Docker Publish
+      shell: bash
+      run: |
+        docker images -a
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u brandencward --password-stdin
+        docker push ghcr.io/brandencward/todoapi:latest
+        
