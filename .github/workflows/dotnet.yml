@@ -58,7 +58,7 @@ jobs:
     - name: Docker Build
       shell: bash
       run: |
-        DOCKER_BUILDKIT=1 docker build . -t todoapi
+        DOCKER_BUILDKIT=1 docker build . -t ghcr.io/brandencward/todoapi
     - name: Docker Publish
       shell: bash
       run: |
