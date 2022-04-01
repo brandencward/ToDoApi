@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapi
+  namespace: default
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: todoapi
+  template:
+    metadata:
+      labels:
+        app: todoapi
+    spec:
+      containers:
+        - name: todoapi
+          image: ghcr.io/brandencward/todoapi-arm:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+            name: web
+            protocol: TCP
+          readinessProbe:
+            httpGet:
+              port: web
+              path: /swagger
