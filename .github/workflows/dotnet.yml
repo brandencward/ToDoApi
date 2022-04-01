@@ -64,5 +64,34 @@ jobs:
       run: |
         docker images -a
         echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u brandencward --password-stdin
-        docker push ghcr.io/brandencward/todoapi:latest
-        
+        docker push ghcr.io/brandencward/todoapi:latest        
+  containerArm64:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v2
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        # Artifact name
+        name: ToDoApi
+        # Destination path
+        path: app
+    - name: Print Folder
+      shell: bash
+      run: |
+        pwd
+        printf "\n"
+        ls /home/runner/work/ToDoApi/ToDoApi/
+        printf "\n"
+        ls /home/runner/work/ToDoApi/ToDoApi/app/
+    - name: Docker Build
+      shell: bash
+      run: |        
+        DOCKER_BUILDKIT=1 docker build -f Dockerfile.arm . -t ghcr.io/brandencward/todoapi-arm
+    - name: Docker Publish
+      shell: bash
+      run: |
+        docker images -a
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u brandencward --password-stdin
+        docker push ghcr.io/brandencward/todoapi-arm:latest
