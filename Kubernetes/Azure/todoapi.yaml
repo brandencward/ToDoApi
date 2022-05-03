@@ -112,7 +112,7 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
-    userAssignedIdentityID: ""
+    userAssignedIdentityID: "35f3d03c-624e-42b1-9ac6-578f0312e7e0"
     keyvaultName: "sandbox-kv-bward1911"
     objects: |
       array:
