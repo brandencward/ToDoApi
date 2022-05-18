@@ -64,7 +64,7 @@ jobs:
       run: |
         docker images -a
         echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u brandencward --password-stdin
-        docker push ghcr.io/brandencward/todoapi-test:test        
+        docker push ghcr.io/brandencward/todoapi-test:latest        
   containerArm64:
     needs: build
     runs-on: ubuntu-latest
@@ -94,4 +94,4 @@ jobs:
       run: |
         docker images -a
         echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u brandencward --password-stdin
-        docker push ghcr.io/brandencward/todoapi-arm-test:test
+        docker push ghcr.io/brandencward/todoapi-arm-test:latest
