@@ -16,6 +16,7 @@ public class ReadFiles : IReadFiles
         try
         {
             lines = System.IO.File.ReadAllLines(path);
+            _logger.LogInfo($"Reading File Text for {path}");
         }
         catch (Exception ex)
         {
