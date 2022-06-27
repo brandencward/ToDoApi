@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todoapi
-          image: ghcr.io/brandencward/todoapi:latest
+          image: ghcr.io/brandencward/todoapi:latest #ghcr.io/brandencward/todoapi-test:latest
           imagePullPolicy: Always
           ports:
           - containerPort: 80

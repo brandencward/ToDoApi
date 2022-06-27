@@ -31,7 +31,7 @@ jobs:
       uses: actions/upload-artifact@v3.0.0
       with:
         # Artifact name
-        name: ToDoApi
+        name: ToDoApi-Test
         # A file, directory or wildcard pattern that describes what to upload
         path: app/
         # The desired behavior if no files are found using the provided path.
@@ -44,7 +44,7 @@ jobs:
       uses: actions/download-artifact@v3.0.0
       with:
         # Artifact name
-        name: ToDoApi
+        name: ToDoApi-Test
         # Destination path
         path: app
     - name: Print Folder
@@ -74,7 +74,7 @@ jobs:
       uses: actions/download-artifact@v3.0.0
       with:
         # Artifact name
-        name: ToDoApi
+        name: ToDoApi-Test
         # Destination path
         path: app
     - name: Print Folder
