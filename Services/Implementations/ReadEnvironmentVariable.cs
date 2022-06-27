@@ -14,7 +14,8 @@ public class ReadEnvironmentVariable : IReadEnvironmentVariable
         string? var = "";
         try
         {
-           var = Environment.GetEnvironmentVariable(variable);          
+           var = Environment.GetEnvironmentVariable(variable); 
+           _logger.LogInformation($"Getting Environment Variable Value for {variable}");         
         }
         catch (Exception ex)
         {
@@ -22,6 +23,7 @@ public class ReadEnvironmentVariable : IReadEnvironmentVariable
         }
         if(var is null){
             var = "";
+            _logger.LogInformation($"Environment Variable was empty."); 
         }
         return var;
     }

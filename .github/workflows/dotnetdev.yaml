@@ -1,0 +1,97 @@
+name: .NET-Dev
+
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build -c release --no-restore
+    - name: Publish
+      run: dotnet publish -o app
+    - name: Print Folder
+      shell: bash
+      run: |
+        pwd
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        # Artifact name
+        name: ToDoApi-Test
+        # A file, directory or wildcard pattern that describes what to upload
+        path: app/
+        # The desired behavior if no files are found using the provided path.
+  container:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v2
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        # Artifact name
+        name: ToDoApi-Test
+        # Destination path
+        path: app
+    - name: Print Folder
+      shell: bash
+      run: |
+        pwd
+        printf "\n"
+        ls /home/runner/work/ToDoApi/ToDoApi/
+        printf "\n"
+        ls /home/runner/work/ToDoApi/ToDoApi/app/
+    - name: Docker Build
+      shell: bash
+      run: |
+        DOCKER_BUILDKIT=1 docker build . -t ghcr.io/brandencward/todoapi-test
+    - name: Docker Publish
+      shell: bash
+      run: |
+        docker images -a
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u brandencward --password-stdin
+        docker push ghcr.io/brandencward/todoapi-test:latest        
+  containerArm64:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v2
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.0
+      with:
+        # Artifact name
+        name: ToDoApi-Test
+        # Destination path
+        path: app
+    - name: Print Folder
+      shell: bash
+      run: |
+        pwd
+        printf "\n"
+        ls /home/runner/work/ToDoApi/ToDoApi/
+        printf "\n"
+        ls /home/runner/work/ToDoApi/ToDoApi/app/
+    - name: Docker Build
+      shell: bash
+      run: |        
+        DOCKER_BUILDKIT=1 docker build -f Dockerfile.arm . -t ghcr.io/brandencward/todoapi-arm-test
+    - name: Docker Publish
+      shell: bash
+      run: |
+        docker images -a
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u brandencward --password-stdin
+        docker push ghcr.io/brandencward/todoapi-arm-test:latest
