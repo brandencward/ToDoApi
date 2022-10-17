@@ -11,4 +11,4 @@ spec:
     - name: web
       port: 80
       targetPort: web
-      nodePort: 31112
+      nodePort: 31111
