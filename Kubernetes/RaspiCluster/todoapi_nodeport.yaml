@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: todoapi-nodeport
-  namespace: default
+  namespace: todoapi
 spec:
   type: NodePort
   selector:
@@ -11,4 +11,4 @@ spec:
     - name: web
       port: 80
       targetPort: web
-      nodePort: 31111
+      nodePort: 31112

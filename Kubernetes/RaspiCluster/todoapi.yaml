@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todoapi
-  namespace: default
+  namespace: todoapi
 spec:
-  replicas: 4
+  replicas: 1
   # strategy:
   #   rollingUpdate:
   #     maxSurge: 25%
@@ -58,8 +58,8 @@ spec:
             mountPath: /mnt/tests/test.txt  
             subPath: test.txt          
             readOnly: true
-          - name: nfs
-            mountPath: /mnt/ssd  
+          # - name: nfs
+          #   mountPath: /mnt/ssd  
           resources:
             limits:
               cpu: 200m
@@ -71,14 +71,15 @@ spec:
       - name: testread
         configMap:
           name: testreadfile
-      - name: nfs
-        persistentVolumeClaim:
-          claimName: nfs
+      # - name: nfs
+      #   persistentVolumeClaim:
+      #     claimName: nfs
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: testreadfile
+  namespace: todoapi
 data:
   test.txt: |
     Some MultiLine text.
@@ -89,49 +90,57 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: testkeyvalpair
+  namespace: todoapi
 data:
   mykey: configmapkeyrefvalue
   testkey1: testingkey1
   testkey2: testingkey2
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nfs
-  namespace: default
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadOnlyMany
-  storageClassName: "" 
-  nfs:
-    path: "/mnt/ssd"
-    server: "192.168.1.61"
-    readOnly: true
-  claimRef:
-    name: nfs
-    namespace: default  
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nfs
-  namespace: default
-spec:
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: "" 
-  volumeName: nfs
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: nfs
+#   namespace: todoapi
+# spec:
+#   capacity:
+#     storage: 1Gi
+#   accessModes:
+#     - ReadOnlyMany
+#   storageClassName: "" 
+#   nfs:
+#     path: "/mnt/ssd"
+#     server: "192.168.1.61"
+#     readOnly: true
+#   claimRef:
+#     name: nfs
+#     namespace: todoapi  
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: nfs
+#   namespace: todoapi
+# spec:
+#   accessModes:
+#     - ReadOnlyMany
+#   resources:
+#     requests:
+#       storage: 1Gi
+#   storageClassName: "" 
+#   volumeName: nfs
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: mysecret
-  namespace: default
+  namespace: todoapi
 type: Opaque
 data:  
   secretkey: dGVzdHNlY3JldHMK
+---
+apiVersion: v1
+kind: Namespace
+metadata: 
+  labels:
+    kubernetes.io/metadata.name: todoapi
+  name: todoapi  
