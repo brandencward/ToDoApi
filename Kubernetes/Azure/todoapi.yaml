@@ -112,8 +112,8 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
-    userAssignedIdentityID: "35f3d03c-624e-42b1-9ac6-578f0312e7e0"
-    keyvaultName: "sandbox-kv-bward1911"
+    userAssignedIdentityID: "YOUR IDENTITY"
+    keyvaultName: "sandbox-kv-mykeyvault23"
     objects: |
       array:
         - |
@@ -124,4 +124,4 @@ spec:
           objectName: kv-secret2              
           objectType: secret
           objectVersion: ""           
-    tenantId: "8cdde764-6a4f-4188-a6a2-a4cd36ed35e2"
+    tenantId: "YOUR TENANT ID"

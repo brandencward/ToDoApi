@@ -109,7 +109,7 @@ data:
 #   storageClassName: "" 
 #   nfs:
 #     path: "/mnt/ssd"
-#     server: "192.168.1.61"
+#     server: "IPADDRESS"
 #     readOnly: true
 #   claimRef:
 #     name: nfs
