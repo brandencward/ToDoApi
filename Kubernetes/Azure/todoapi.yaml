@@ -113,7 +113,7 @@ spec:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
     userAssignedIdentityID: "YOUR IDENTITY"
-    keyvaultName: "sandbox-kv-mykeyvault23"
+    keyvaultName: "sandbox-kv-mykeyvault"
     objects: |
       array:
         - |
